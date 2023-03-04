@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 
+from app.models import JobPost
 
 job_title = [
     "First job",
@@ -15,9 +16,11 @@ job_description = [
     "Third job description"
 ]
 
+
 # Create your views here.
 class TempClass:
     x = 5
+
 
 def hello(request):
     list = ["alpha", "beta"]
@@ -27,14 +30,17 @@ def hello(request):
 
 
 def job_list(request):
-    context = {"job_list": job_title}
+    jobs = JobPost.objects.all()
+    context = {"jobs": jobs}
     return render(request, 'app/index.html', context)
+
 
 def job_detail(request, id):
     try:
         if id == 0:
             return redirect(reverse('jobs_home'))
-        context = {"job_title": job_title[id], "job_description": job_description[id]}
+        job = JobPost.objects.get(id=id)
+        context = {"job": job}
         return render(request, 'app/job_detail.html', context)
     except:
         return HttpResponseNotFound("Not found")
