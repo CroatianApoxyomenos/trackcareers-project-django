@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.models import JobPost
+from app.models import JobPost, Location, Author, Skills
 
 
 # Register your models here.
@@ -10,7 +10,7 @@ class JobAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     fieldsets = (
         ('Basic information', {
-            'fields' : ('title', 'description')
+            'fields': ('title', 'description')
         }),
         ('More information', {
             'fields': ('expiry', 'salary', 'slug')
@@ -18,4 +18,7 @@ class JobAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(JobPost, JobAdmin)
+admin.site.register(JobPost)
+admin.site.register(Location)
+admin.site.register(Author)
+admin.site.register(Skills)
