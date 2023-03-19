@@ -31,15 +31,21 @@ class Location(models.Model):
 
 
 class JobPost(models.Model):
+    JOB_TYPE_CHOICES = [
+        ('Full-time', 'Full-time'),
+        ('Part-time', 'Part-time')
+    ]
+
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    description = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     expiry = models.DateField(null=True)
     salary = models.PositiveIntegerField()
     slug = models.SlugField(null=True, max_length=40, unique=True)
-    location = models.OneToOneField(Location, on_delete=models.CASCADE, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
     skills = models.ManyToManyField(Skills)
+    type = models.CharField(max_length=200, null=False, choices=JOB_TYPE_CHOICES)
 
     def save(self, *args, **kwargs):
         if not self.id:
