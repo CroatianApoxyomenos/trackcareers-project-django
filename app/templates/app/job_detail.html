@@ -14,6 +14,7 @@ TrackCareers | {{ job.title }}
           <p class="location it">Location: <span>{{ job.location.city }}</span></p>
           <p class="status it">Type: <span>{{ job.type }}</span></p>
           <p class="budget it">Salary: <span>{{ job.salary }}</span></p>
+          <p class="skill it">Skills: <span>{{ job.skills.all|join:", " }}</span></p>
           <div class="desc">
             <p class="details">
               {{ job.description }}
